@@ -47,6 +47,12 @@ async function run() {
       res.json(result);
     });
 
+    app.delete('/request/:id', async (req, res) => {
+      const { id } = req.params;
+      const result = await clientRequest.deleteOne({ _id: new ObjectId(id) });
+      res.json(result);
+    })
+
     app.post('/request', async (req, res) => {
       const request = req.body;
       console.log(request);
