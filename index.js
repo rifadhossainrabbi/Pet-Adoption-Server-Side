@@ -28,6 +28,7 @@ async function run() {
 
     const db = client.db('PetHaven');
     const allPets = db.collection('pets');
+    const clientRequest = db.collection("Client_Request")
 
     app.get('/pets', async (req, res) => {
       const result = await allPets.find().toArray();
@@ -38,6 +39,18 @@ async function run() {
       const pet = req.body;
       console.log(pet);
       const result = await allPets.insertOne(pet);
+      res.json(result);
+    });
+
+     app.get('/request', async (req, res) => {
+       const result = await clientRequest.find().toArray();
+       res.json(result);
+     });
+
+    app.post('/request', async (req, res) => {
+      const request = req.body;
+      console.log(request);
+      const result = await clientRequest.insertOne(request);
       res.json(result);
     });
 
