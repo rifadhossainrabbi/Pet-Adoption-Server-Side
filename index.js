@@ -71,6 +71,16 @@ async function run() {
 
     app.patch('/pets/:id', async (req, res) => {
       const { id } = req.params;
+      const { sotck } = req.body;
+      const result = await allPets.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { sotck: sotck } },
+      );
+      res.json(result);
+    })
+
+    app.patch('/pets/:id', async (req, res) => {
+      const { id } = req.params;
       const updateData = req.body;
       const result = await allPets.updateOne(
         { _id: new ObjectId(id) },
