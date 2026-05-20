@@ -28,7 +28,7 @@ async function run() {
 
     const db = client.db('PetHaven');
     const allPets = db.collection('pets');
-    const clientRequest = db.collection("Client_Request")
+    const clientRequest = db.collection('Client_Request');
 
     app.get('/pets', async (req, res) => {
       const result = await allPets.find().toArray();
@@ -42,10 +42,10 @@ async function run() {
       res.json(result);
     });
 
-     app.get('/request', async (req, res) => {
-       const result = await clientRequest.find().toArray();
-       res.json(result);
-     });
+    app.get('/request', async (req, res) => {
+      const result = await clientRequest.find().toArray();
+      res.json(result);
+    });
 
     app.post('/request', async (req, res) => {
       const request = req.body;
