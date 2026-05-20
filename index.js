@@ -53,6 +53,12 @@ async function run() {
       res.json(result);
     })
 
+    app.delete('/pets/:id', async (req, res) => {
+      const { id } = req.params;
+      const result = await allPets.deleteOne({ _id: new ObjectId(id) });
+      res.json(result);
+    })
+
     app.patch('/request/:id', async (req, res) => {
       const { id } = req.params;
       const { status } = req.body;
