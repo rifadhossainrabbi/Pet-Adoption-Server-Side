@@ -53,6 +53,16 @@ async function run() {
       res.json(result);
     })
 
+    app.patch('/request/:id', async (req, res) => {
+      const { id } = req.params;
+      const { status } = req.body;
+      const result = await clientRequest.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { status: status } },
+      );
+      res.json(result);
+    })
+
     app.post('/request', async (req, res) => {
       const request = req.body;
       console.log(request);
