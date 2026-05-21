@@ -31,7 +31,21 @@ async function run() {
     const clientRequest = db.collection('Client_Request');
 
     app.get('/pets', async (req, res) => {
-      const result = await allPets.find().toArray();
+      const { search, species } = req.query;
+      // initialy query te kono info nai tai sob data ashbe jodi search and species na thake
+      let query = {};
+
+      // i mane case insensitive mane uppercase r lowercase soman
+      if (search) {
+        query.PetName = { $regex: search, $options: 'i' };
+      }
+
+      // species a kisu na kisu hobe but all hobe na tobei oi specis onujai filter hobe noyto sob data jabe
+      if (species && species !== 'all') {
+        query.species = { $in: [species] };
+      }
+
+      const result = await allPets.find(query).toArray();
       res.json(result);
     });
 
