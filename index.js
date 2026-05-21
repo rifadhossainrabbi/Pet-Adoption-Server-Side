@@ -85,19 +85,19 @@ async function run() {
       res.json(result);
     });
 
-    app.delete('/request/:id', async (req, res) => {
+    app.delete('/request/:id',verifyToken, async (req, res) => {
       const { id } = req.params;
       const result = await clientRequest.deleteOne({ _id: new ObjectId(id) });
       res.json(result);
     })
 
-    app.delete('/pets/:id', async (req, res) => {
+    app.delete('/pets/:id',verifyToken, async (req, res) => {
       const { id } = req.params;
       const result = await allPets.deleteOne({ _id: new ObjectId(id) });
       res.json(result);
     })
 
-    app.patch('/request/:id', async (req, res) => {
+    app.patch('/request/:id',verifyToken, async (req, res) => {
       const { id } = req.params;
       const { status } = req.body;
       const result = await clientRequest.updateOne(
@@ -107,7 +107,7 @@ async function run() {
       res.json(result);
     })
 
-    app.patch('/pets/:id', async (req, res) => {
+    app.patch('/pets/:id',verifyToken, async (req, res) => {
       const { id } = req.params;
       const { sotck } = req.body;
       const result = await allPets.updateOne(
@@ -117,7 +117,7 @@ async function run() {
       res.json(result);
     })
 
-    app.patch('/pets/:id', async (req, res) => {
+    app.patch('/pets/:id',verifyToken, async (req, res) => {
       const { id } = req.params;
       const updateData = req.body;
       const result = await allPets.updateOne(
@@ -127,7 +127,7 @@ async function run() {
       res.json(result);
     })
 
-    app.post('/request', async (req, res) => {
+    app.post('/request',verifyToken, async (req, res) => {
       const request = req.body;
       console.log(request);
       const result = await clientRequest.insertOne(request);
