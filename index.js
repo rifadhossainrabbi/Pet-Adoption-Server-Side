@@ -127,7 +127,7 @@ async function run() {
       res.json(result);
     });
 
-    app.get('/pets/:id',verifyToken, async (req, res) => {
+    app.get('/pets/:id', async (req, res) => {
       const { id } = req.params;
       const result = await allPets.findOne({ _id: new ObjectId(id) });
       res.json(result);
